@@ -4,10 +4,6 @@ from tensorflow.keras.models import Model
 import numpy as np
 import pickle
 
-# Sample data (replace with your own data loading/preprocessing)
-#input_assembly = ['mov eax, 5', 'add ebx, eax', 'mov ecx, 10']
-#output_c_code = ['int a = 5;', 'b += a;', 'int c = 10;']
-
 input_assembly = []
 output_c_code = []
 
