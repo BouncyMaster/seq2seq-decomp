@@ -4,12 +4,6 @@ from tensorflow.keras.models import Model
 import numpy as np
 import pickle
 
-# Sample data (replace with your own data loading/preprocessing)
-input_assembly = ['mov eax, 5', 'add ebx, eax', 'mov ecx, 10']
-output_c_code = ['int a = 5;', 'b += a;', 'int c = 10;']
-
-output_c_code = ['<start> ' + seq + ' <end>' for seq in output_c_code]
-
 # Load the tokenizer
 with open('assembly_tokenizer.pkl', 'rb') as f:
     assembly_tokenizer, max_length_assembly = pickle.load(f)
@@ -19,13 +13,6 @@ with open('c_tokenizer.pkl', 'rb') as f:
 
 assembly_vocab_size = len(assembly_tokenizer.word_index) + 1
 c_vocab_size = len(c_tokenizer.word_index) + 1
-
-# Padding sequences
-input_sequences = assembly_tokenizer.texts_to_sequences(input_assembly)
-input_sequences = tf.keras.preprocessing.sequence.pad_sequences(input_sequences, maxlen=max_length_assembly, padding='post')
-
-output_sequences = c_tokenizer.texts_to_sequences(output_c_code)
-output_sequences = tf.keras.preprocessing.sequence.pad_sequences(output_sequences, maxlen=max_length_c, padding='post')
 
 # Creating the Seq2Seq model
 latent_dim = 256
@@ -47,9 +34,6 @@ decoder_outputs = decoder_dense(decoder_outputs)
 
 # Model
 model = Model([encoder_inputs, decoder_inputs], decoder_outputs)
-
-# Compile the model
-model.compile(optimizer='adam', loss='sparse_categorical_crossentropy')
 
 # Train the model
 model.load_weights('saved_model/assembly_to_c_model.ckpt').expect_partial()
