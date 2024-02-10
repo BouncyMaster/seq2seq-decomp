@@ -1,2 +1,0 @@
-model_checkpoint_path: "assembly_to_c_model.ckpt"
-all_model_checkpoint_paths: "assembly_to_c_model.ckpt"

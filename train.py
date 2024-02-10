@@ -5,8 +5,18 @@ import numpy as np
 import pickle
 
 # Sample data (replace with your own data loading/preprocessing)
-input_assembly = ['mov eax, 5', 'add ebx, eax', 'mov ecx, 10']
-output_c_code = ['int a = 5;', 'b += a;', 'int c = 10;']
+#input_assembly = ['mov eax, 5', 'add ebx, eax', 'mov ecx, 10']
+#output_c_code = ['int a = 5;', 'b += a;', 'int c = 10;']
+
+input_assembly = []
+output_c_code = []
+
+# Load data
+for i in range(1,10000):
+    with open(f"training_data/re/tst_1/asm_src/rd_{i}.s") as f:
+        input_assembly.append(f.read())
+    with open(f"training_data/re/tst_1/c_src/rd_{i}.cc") as f:
+        output_c_code.append(f.read())
 
 output_c_code = ['<start> ' + seq + ' <end>' for seq in output_c_code]
 
