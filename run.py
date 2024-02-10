@@ -15,7 +15,7 @@ assembly_vocab_size = len(assembly_tokenizer.word_index) + 1
 c_vocab_size = len(c_tokenizer.word_index) + 1
 
 # Creating the Seq2Seq model
-latent_dim = 256
+latent_dim = 128
 
 # Encoder
 encoder_inputs = Input(shape=(max_length_assembly,))

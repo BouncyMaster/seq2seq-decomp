@@ -37,7 +37,7 @@ output_sequences = c_tokenizer.texts_to_sequences(output_c_code)
 output_sequences = tf.keras.preprocessing.sequence.pad_sequences(output_sequences, maxlen=max_length_c, padding='post')
 
 # Creating the Seq2Seq model
-latent_dim = 256
+latent_dim = 128
 
 # Encoder
 encoder_inputs = Input(shape=(max_length_assembly,))
