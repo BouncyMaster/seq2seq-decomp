@@ -63,7 +63,7 @@ model.compile(optimizer='adam', loss='sparse_categorical_crossentropy')
 # Train the model
 callback = tf.keras.callbacks.EarlyStopping(monitor='loss', patience=10)
 
-model.fit([input_sequences, output_sequences], output_sequences, batch_size=64, epochs=500, validation_split=0.2, callbacks=[callback])
+model.fit([input_sequences, output_sequences], output_sequences, batch_size=64, epochs=250, validation_split=0.2, callbacks=[callback])
 
 # Save the model
 model.save_weights('saved_model/assembly_to_c_model.ckpt')
