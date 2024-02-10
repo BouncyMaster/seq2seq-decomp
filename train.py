@@ -61,7 +61,7 @@ model = Model([encoder_inputs, decoder_inputs], decoder_outputs)
 model.compile(optimizer='adam', loss='sparse_categorical_crossentropy')
 
 # Train the model
-callback = tf.keras.callbacks.EarlyStopping(monitor='loss', patience=10)
+callback = tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=10, start_from_epoch=80)
 
 model.fit([input_sequences, output_sequences], output_sequences, batch_size=64, epochs=250, validation_split=0.2, callbacks=[callback])
 
