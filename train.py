@@ -7,11 +7,18 @@ import pickle
 input_assembly = []
 output_c_code = []
 
-# Load data
-for i in range(1,10000):
-    with open(f"training_data/re/tst_1/asm_src/rd_{i}.s") as f:
+# Load data (1)
+for i in range(0,10000):
+    with open(f"training_data/re_modified/1/asm/{i}.asm") as f:
         input_assembly.append(f.read())
-    with open(f"training_data/re/tst_1/c_src/rd_{i}.cc") as f:
+    with open(f"training_data/re_modified/1/c/{i}.c") as f:
+        output_c_code.append(f.read())
+
+# Load data (2)
+for i in range(0,10000):
+    with open(f"training_data/re_modified/2/asm/{i}.asm") as f:
+        input_assembly.append(f.read())
+    with open(f"training_data/re_modified/2/c/{i}.c") as f:
         output_c_code.append(f.read())
 
 output_c_code = ['<start> ' + seq + ' <end>' for seq in output_c_code]
