@@ -15,7 +15,7 @@ assembly_vocab_size = len(assembly_tokenizer.word_index) + 1
 c_vocab_size = len(c_tokenizer.word_index) + 1
 
 # Creating the Seq2Seq model
-latent_dim = 50
+latent_dim = 30
 
 # Encoder
 encoder_inputs = Input(shape=(max_length_assembly,))
@@ -95,7 +95,7 @@ decoder_model = Model(
     [decoder_outputs] + decoder_states)
 
 # Sample inference
-with open("training_data/re_modified/1/asm/41.asm") as f:
+with open("training_data/re_modified/1/asm/6000.asm") as f:
     in_test = f.read()
 
 test_input_seq = assembly_tokenizer.texts_to_sequences([in_test])

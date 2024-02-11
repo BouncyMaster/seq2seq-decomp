@@ -45,7 +45,7 @@ max_length_c = max(map(len, output_sequences))
 output_sequences = tf.keras.preprocessing.sequence.pad_sequences(output_sequences, maxlen=max_length_c, padding='post')
 
 # Creating the Seq2Seq model
-latent_dim = 50
+latent_dim = 30
 
 # Encoder
 encoder_inputs = Input(shape=(max_length_assembly,))
@@ -69,11 +69,11 @@ model = Model([encoder_inputs, decoder_inputs], decoder_outputs)
 model.compile(optimizer='adam', loss='sparse_categorical_crossentropy')
 
 # Train the model
-callback = tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=10, start_from_epoch=80, restore_best_weights=True)
+callback = tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=3, restore_best_weights=True)
 
 tensorboard_callback = tf.keras.callbacks.TensorBoard()
 
-model.fit([input_sequences, output_sequences], output_sequences, batch_size=64, epochs=80, validation_split=0.2, callbacks=[callback, tensorboard_callback])
+model.fit([input_sequences, output_sequences], output_sequences, batch_size=64, epochs=20, validation_split=0.2, callbacks=[callback, tensorboard_callback])
 
 # Save the model
 model.save_weights('saved_model/assembly_to_c_model.ckpt')
