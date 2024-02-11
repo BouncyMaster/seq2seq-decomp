@@ -36,12 +36,12 @@ c_vocab_size = len(c_tokenizer.word_index) + 1
 # Padding sequences
 input_sequences = assembly_tokenizer.texts_to_sequences(input_assembly)
 
-max_length_assembly = len(max(input_sequences))
+max_length_assembly = max(map(len, input_sequences))
 input_sequences = tf.keras.preprocessing.sequence.pad_sequences(input_sequences, maxlen=max_length_assembly, padding='post')
 
 output_sequences = c_tokenizer.texts_to_sequences(output_c_code)
 
-max_length_c = len(max(output_sequences))
+max_length_c = max(map(len, output_sequences))
 output_sequences = tf.keras.preprocessing.sequence.pad_sequences(output_sequences, maxlen=max_length_c, padding='post')
 
 # Creating the Seq2Seq model
@@ -71,7 +71,7 @@ model.compile(optimizer='adam', loss='sparse_categorical_crossentropy')
 # Train the model
 callback = tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=10, start_from_epoch=80, restore_best_weights=True)
 
-model.fit([input_sequences, output_sequences], output_sequences, batch_size=64, epochs=50, validation_split=0.2, callbacks=[callback])
+model.fit([input_sequences, output_sequences], output_sequences, batch_size=64, epochs=80, validation_split=0.2, callbacks=[callback])
 
 # Save the model
 model.save_weights('saved_model/assembly_to_c_model.ckpt')
