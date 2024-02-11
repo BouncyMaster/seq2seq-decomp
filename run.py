@@ -40,6 +40,7 @@ model.load_weights('saved_model/assembly_to_c_model.ckpt').expect_partial()
 
 def decode_sequence(input_seq):
     # Encode the input as state vectors.
+    print(f"Sequence len: {len(input_seq[0])}, max len: {max_length_assembly}")
     input_seq = tf.keras.preprocessing.sequence.pad_sequences(input_seq, maxlen=max_length_assembly, padding='post')
 
     states_value = encoder_model.predict(input_seq)
