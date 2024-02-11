@@ -45,7 +45,7 @@ max_length_c = max(map(len, output_sequences))
 output_sequences = tf.keras.preprocessing.sequence.pad_sequences(output_sequences, maxlen=max_length_c, padding='post')
 
 # Creating the Seq2Seq model
-latent_dim = 256
+latent_dim = 50
 
 # Encoder
 encoder_inputs = Input(shape=(max_length_assembly,))
