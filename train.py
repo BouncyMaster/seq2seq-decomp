@@ -37,7 +37,7 @@ c_vocab_size = len(c_tokenizer.word_index) + 1
 input_sequences = assembly_tokenizer.texts_to_sequences(input_assembly)
 
 max_length_assembly = max(map(len, input_sequences))
-input_sequences = tf.keras.preprocessing.sequence.pad_sequences(input_sequences, maxlen=max_length_assembly, padding='post')
+input_sequences = tf.keras.preprocessing.sequence.pad_sequences(input_sequences, maxlen=max_length_assembly)
 
 output_sequences = c_tokenizer.texts_to_sequences(output_c_code)
 
@@ -45,7 +45,7 @@ max_length_c = max(map(len, output_sequences))
 output_sequences = tf.keras.preprocessing.sequence.pad_sequences(output_sequences, maxlen=max_length_c, padding='post')
 
 # Creating the Seq2Seq model
-latent_dim = 128
+latent_dim = 512
 
 # Encoder
 encoder_inputs = Input(shape=(max_length_assembly,))

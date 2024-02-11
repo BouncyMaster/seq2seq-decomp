@@ -15,7 +15,7 @@ assembly_vocab_size = len(assembly_tokenizer.word_index) + 1
 c_vocab_size = len(c_tokenizer.word_index) + 1
 
 # Creating the Seq2Seq model
-latent_dim = 128
+latent_dim = 512
 
 # Encoder
 encoder_inputs = Input(shape=(max_length_assembly,))
@@ -41,7 +41,7 @@ model.load_weights('saved_model/assembly_to_c_model.ckpt').expect_partial()
 def decode_sequence(input_seq):
     # Encode the input as state vectors.
     print(f"Sequence len: {len(input_seq[0])}, max len: {max_length_assembly}")
-    input_seq = tf.keras.preprocessing.sequence.pad_sequences(input_seq, maxlen=max_length_assembly, padding='post')
+    input_seq = tf.keras.preprocessing.sequence.pad_sequences(input_seq, maxlen=max_length_assembly)
 
     states_value = encoder_model.predict(input_seq)
 
