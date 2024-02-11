@@ -71,7 +71,7 @@ model.compile(optimizer='adam', loss='sparse_categorical_crossentropy')
 # Train the model
 callback = tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=10, start_from_epoch=80, restore_best_weights=True)
 
-tensorboard_callback = keras.callbacks.TensorBoard()
+tensorboard_callback = tf.keras.callbacks.TensorBoard()
 
 model.fit([input_sequences, output_sequences], output_sequences, batch_size=64, epochs=80, validation_split=0.2, callbacks=[callback, tensorboard_callback])
 
