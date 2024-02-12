@@ -72,7 +72,7 @@ def transformer_model(input_vocab_size, target_vocab_size, max_length_input, max
         
     decoder_outputs = Dense(target_vocab_size)(decoder_outputs)
     
-    return Model([encoder_inputs, decoder_inputs], decoder_outputs)
+    return Model(encoder_inputs, decoder_outputs)
 
 def encoder_layer(x, num_heads, dff, d_model, dropout_rate=0.1):
     # Multi-Head Attention
@@ -123,7 +123,7 @@ def create_look_ahead_mask(size):
 # Model Parameters
 d_model = 64
 num_heads = 4
-dff = 128
+dff = 64
 num_layers = 2
 
 model = transformer_model(assembly_vocab_size, c_vocab_size, max_length_assembly, max_length_c, d_model, num_heads, dff, num_layers)
@@ -136,7 +136,7 @@ callback = tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=3, rest
 
 tensorboard_callback = tf.keras.callbacks.TensorBoard()
 
-model.fit([input_sequences, output_sequences], output_sequences, batch_size=64, epochs=20, validation_split=0.2, callbacks=[callback, tensorboard_callback])
+model.fit(input_sequences, output_sequences, batch_size=64, epochs=20, validation_split=0.2, callbacks=[callback, tensorboard_callback])
 # TODO: try with slicing
 #model.fit([input_sequences, output_sequences[:, :-1]], output_sequences[:, 1:], batch_size=64, epochs=20, validation_split=0.2, callbacks=[callback, tensorboard_callback])
 

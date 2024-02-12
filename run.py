@@ -1,6 +1,8 @@
 import tensorflow as tf
-from tensorflow.keras.layers import Input, LSTM, Dense
+from tensorflow.keras.layers import Input, Dense, Embedding, Masking
+from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.models import Model
+from tensorflow.keras.losses import SparseCategoricalCrossentropy
 import numpy as np
 import pickle
 
@@ -40,7 +42,7 @@ def transformer_model(input_vocab_size, target_vocab_size, max_length_input, max
         
     decoder_outputs = Dense(target_vocab_size)(decoder_outputs)
     
-    return Model([encoder_inputs, decoder_inputs], decoder_outputs)
+    return Model(encoder_inputs, decoder_outputs)
 
 def encoder_layer(x, num_heads, dff, d_model, dropout_rate=0.1):
     # Multi-Head Attention
@@ -91,7 +93,7 @@ def create_look_ahead_mask(size):
 # Model Parameters
 d_model = 64
 num_heads = 4
-dff = 128
+dff = 64
 num_layers = 2
 
 model = transformer_model(assembly_vocab_size, c_vocab_size, max_length_assembly, max_length_c, d_model, num_heads, dff, num_layers)
