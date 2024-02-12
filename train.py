@@ -136,7 +136,7 @@ callback = tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=3, rest
 
 tensorboard_callback = tf.keras.callbacks.TensorBoard()
 
-model.fit(input_sequences, output_sequences, batch_size=64, epochs=20, validation_split=0.2, callbacks=[callback, tensorboard_callback])
+model.fit([input_sequences, output_sequences], output_sequences, batch_size=64, epochs=20, validation_split=0.2, callbacks=[callback, tensorboard_callback])
 # TODO: try with slicing
 #model.fit([input_sequences, output_sequences[:, :-1]], output_sequences[:, 1:], batch_size=64, epochs=20, validation_split=0.2, callbacks=[callback, tensorboard_callback])
 
