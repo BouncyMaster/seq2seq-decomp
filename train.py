@@ -121,9 +121,9 @@ def create_look_ahead_mask(size):
     return mask
 
 # Model Parameters
-d_model = 128
+d_model = 64
 num_heads = 4
-dff = 512
+dff = 256
 num_layers = 2
 
 model = transformer_model(assembly_vocab_size, c_vocab_size, max_length_assembly, max_length_c, d_model, num_heads, dff, num_layers)
